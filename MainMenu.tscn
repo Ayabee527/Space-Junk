@@ -1,0 +1,197 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://plex_mono_24.tres" type="DynamicFont" id=1]
+[ext_resource path="res://MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://BaseButt.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Empty Space.wav" type="AudioStream" id=4]
+[ext_resource path="res://plex_mono_8.tres" type="DynamicFont" id=5]
+[ext_resource path="res://plex-mono_12.tres" type="DynamicFont" id=6]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 90, 1 )
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = -200.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 45.0
+angle_random = 1.0
+scale = 1.5
+scale_random = 1.0
+color = Color( 0.792157, 0.792157, 0.792157, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxLine" id=3]
+color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxLine" id=4]
+color = Color( 1, 1, 1, 1 )
+vertical = true
+
+[sub_resource type="StyleBoxLine" id=5]
+color = Color( 1, 1, 1, 1 )
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BGLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BG" type="ColorRect" parent="BGLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stars" type="Particles2D" parent="BGLayer"]
+position = Vector2( 360, 90 )
+amount = 30
+lifetime = 4.0
+explosiveness = 0.15
+local_coords = false
+process_material = SubResource( 1 )
+
+[node name="MenuLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="MenuLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuLayer/PanelContainer"]
+margin_right = 386.0
+margin_bottom = 180.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 30
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuLayer/PanelContainer/MarginContainer"]
+margin_left = 50.0
+margin_top = 30.0
+margin_right = 336.0
+margin_bottom = 150.0
+custom_constants/separation = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer"]
+margin_right = 140.0
+margin_bottom = 120.0
+custom_constants/separation = 10
+
+[node name="Title" type="Label" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_right = 140.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 1 )
+text = "Space Junk"
+align = 1
+valign = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 42.0
+margin_right = 140.0
+margin_bottom = 120.0
+size_flags_horizontal = 7
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Butts" type="VBoxContainer" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer"]
+margin_top = 13.5
+margin_right = 140.0
+margin_bottom = 63.5
+size_flags_horizontal = 7
+size_flags_vertical = 6
+custom_constants/separation = 10
+
+[node name="PlayButt" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Butts" instance=ExtResource( 3 )]
+margin_right = 140.0
+focus_neighbour_top = NodePath("../QuitButt")
+size_flags_horizontal = 7
+text = "Play"
+
+[node name="QuitButt" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Butts" instance=ExtResource( 3 )]
+margin_top = 30.0
+margin_right = 140.0
+margin_bottom = 50.0
+focus_neighbour_bottom = NodePath("../PlayButt")
+size_flags_horizontal = 7
+text = "Quit"
+
+[node name="PanelContainer" type="PanelContainer" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 145.0
+margin_right = 286.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 4 )
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/PanelContainer"]
+margin_left = 0.5
+margin_right = 140.5
+margin_bottom = 120.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 135.0
+margin_bottom = 115.0
+
+[node name="Controls" type="Label" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+margin_right = 130.0
+margin_bottom = 87.0
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 5 )
+text = "Turn Left: Arrow Left
+Turn Right: Arrow Right
+Move Forward: Arrow Up
+Move Backwards: Arrow Down
+Dash: Spacebar
+Pause: Escape"
+align = 1
+valign = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 91.0
+margin_right = 130.0
+margin_bottom = 110.0
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 5 )
+
+[node name="Highscore" type="Label" parent="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+margin_top = 0.5
+margin_right = 130.0
+margin_bottom = 17.5
+custom_fonts/font = ExtResource( 6 )
+text = "Highscore: 0"
+align = 1
+valign = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -0.5
+autoplay = true
+
+[connection signal="pressed" from="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Butts/PlayButt" to="." method="_on_PlayButt_pressed"]
+[connection signal="pressed" from="MenuLayer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/PanelContainer/Butts/QuitButt" to="." method="_on_QuitButt_pressed"]
